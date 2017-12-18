@@ -2,6 +2,7 @@ import urllib2
 import BeautifulSoup
 import itertools
 import re
+from bs4 import BeautifulSoup
 
 def getLinks():
 	#website were going to
@@ -9,23 +10,33 @@ def getLinks():
 
 	page = urllib2.urlopen(craig)
 
-	from bs4 import BeautifulSoup
-
 	soup = BeautifulSoup(page, 'html.parser')
 	
 	#get each individual post
 	links = soup.select('li.result-row')
 
+	newList = []
+
 	#get just the link for each post
 	for e in links:
-		e = e.a['href']
+		newList.append(e.a['href'])
 
-	return links
+	return newList
+
+def iterate(u):
+	page = urllib2.urlopen(u)
+	soup = BeautifulSoup(page, 'html.parser')
+
+	print soup
 
 file = open('output.txt','w')
 
+theLinks = getLinks()
 
+iterate(theLinks[0])
 
+#for e in theLinks:
+	#iterate(e)
 
 
 
