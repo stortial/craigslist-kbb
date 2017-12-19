@@ -26,8 +26,9 @@ def getLinks():
 def iterate(u):
 	page = urllib2.urlopen(u)
 	soup = BeautifulSoup(page, 'html.parser')
-
-	print soup
+	list = soup.select('p.attrgroup')
+	print list
+	
 
 file = open('output.txt','w')
 
