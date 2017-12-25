@@ -3,6 +3,8 @@ import BeautifulSoup
 import itertools
 import re
 from bs4 import BeautifulSoup
+#import rhinoscriptsyntax as rs
+import json
 
 def getLinks():
 	#website were going to
@@ -36,19 +38,26 @@ def iterate(u):
 	title = title.strip()
 
 	parse(title)
-
-	#print title
 	
 def parse(t):
 	#find the year
-	test = re.match(r'\d\d\d\d',t)
-	print test.group()
+	year = re.match(r'\d\d\d\d',t)
+	#make = any(x in MAKES for c in t)#with makes being the list of all car makes
+	#model = re.match()
+	#print year.group()
 
 file = open('output.txt','w')
 
-theLinks = getLinks()
+#opens the list of all car makes and models
+with open('car-list.json', 'r') as f:
+	data = json.load(f)
 
-iterate(theLinks[0])
+for k,v in data.iteritems():
+	print(k,v)
+
+#theLinks = getLinks()
+
+#iterate(theLinks[0])
 
 #for e in theLinks:
 	#iterate(e)
