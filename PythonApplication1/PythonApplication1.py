@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 #import rhinoscriptsyntax as rs
 import json
 
-
+#gets the links for each post
 def getLinks():
 	#website were going to
 	craig = "https://binghamton.craigslist.org/search/cta?hasPic=1&searchNearby=1"
@@ -27,6 +27,7 @@ def getLinks():
 
 	return newList
 
+#gets the title from the post and parses it
 def iterate(u):
 	page = urllib2.urlopen(u)
 	#gets the webpage nad stores it as soup
@@ -40,38 +41,84 @@ def iterate(u):
 	title = title.strip()
 
 	return parse(title)
-	
+
+#TODO - finish parse
+#get make and model
+#make year proper number ie dosent take in 1500 from "chevy siverado 1500"	
+#finish style
 def parse(t):
-	#find the year
-	year = re.match(r'\d\d\d\d',t)
-	make = "make"
-	model = "model"
+
+	#find the year, make and model
+	#year = re.match(r'\d\d\d\d',t)
+	year = "2010"
+	make = "chevrolet"
+	model = "equinox"
 	#make = any(x in MAKES for c in t)#with makes being the list of all car makes
 	#model = re.match()
 	#print year.group()
 
-	return year.group(), make, model
-	
+	#make sure you initialize style
+	style = "None";
+
+	#get the style
+
+	#return year.group(), make, model, style
+	return year, make, model, style
+
+#opens initial kbb page
+def getKBBPage(data):
+	kbb = "https://www.kbb.com/"+data[1]+"/"+data[2]+"/"+data[0]+"/"
+	thePage = urllib2.urlopen(kbb)
+	theSoup = BeautifulSoup(thePage, 'html.parser')
+	#print theSoup
+	newPage = theSoup.select("span[class=right] > p")
+	newPage = newPage[0]
+
+	if data[3] != "None":
+		return "https://www.kbb.com"+newPage.a['href']+"&bodystyle="+style
+	else:
+		return "https://www.kbb.com"+newPage.a['href']
+
+def nextPage(start):
+	page = urllib2.urlopen(start)
+	soup = BeautifulSoup(page, 'html.parser')
+	#data = soup.select("div[class=style-category-container] > div[class=mod-content__expanded-content]")
+	print soup
+
 file = open('output.txt','w')
 
+#TODO
 #opens the list of all car makes and models
 with open('car-list.json', 'r') as f:
 	data = json.load(f)
-
-
 
 #for i in data:
 #	print i
 
 theLinks = getLinks()
 
+#for e in theLinks:
+	#returns year make and model in tuple in that order
+	#data = iterate(e)
+	#start = getKBBPage(data)
+
+
 #returns year make and model in tuple in that order
 data = iterate(theLinks[0])
 
-print data
+#gets the first kbb page
+start = getKBBPage(data)
 
-#for e in theLinks:
-	#iterate(e)
+#gets the next page
+nextPage(start)
+
+#note if this is a sedan or a coup. you must do some freaky deaky stuff
+#that shall be done here
+
+#otherwise it will continue on and take the cheapest option
+
+#print data
+
 
 	 
 
