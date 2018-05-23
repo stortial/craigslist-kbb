@@ -14,7 +14,7 @@ def getLinks():
 	#opens the webpage and stores it in soup
 	page = urllib.request.urlopen(craig)
 	soup = BeautifulSoup(page, 'html.parser')
-	
+
 	#get each individual post
 	links = soup.select('li.result-row')
 
@@ -25,7 +25,7 @@ def getLinks():
 		newList.append(e.a['href'])
 
 	return newList
-
+"""
 #gets the title from the post and parses it
 def iterate(u):
 	page = urllib.request.urlopen(u)
@@ -34,7 +34,7 @@ def iterate(u):
 
 	#gets the list of things on the side and saves it under list
 	list = soup.find_all("p", "attrgroup")
-	
+
 	#get the title ex "2008 gmc 1500 sierra" and expunge it of the whitespace
 	title = list[0].text
 	title = title.strip()
@@ -43,7 +43,7 @@ def iterate(u):
 
 #TODO - finish parse
 #get make and model
-#make year proper number ie dosent take in 1500 from "chevy siverado 1500"	
+#make year proper number ie dosent take in 1500 from "chevy siverado 1500"
 #finish style
 def parse(t):
 
@@ -83,7 +83,7 @@ def nextPage(start):
 	soup = BeautifulSoup(page, 'html.parser')
 	#data = soup.select("div[class=style-category-container] > div[class=mod-content__expanded-content]")
 	#print soup
-
+"""
 file = open('output.txt','w')
 
 #TODO
@@ -101,7 +101,7 @@ theLinks = getLinks()
 	#data = iterate(e)
 	#start = getKBBPage(data)
 
-
+"""
 #returns year make and model in tuple in that order
 data = iterate(theLinks[0])
 
@@ -117,9 +117,9 @@ nextPage(start)
 #otherwise it will continue on and take the cheapest option
 
 #print data
+"""
 
 
-	 
 
 
 
