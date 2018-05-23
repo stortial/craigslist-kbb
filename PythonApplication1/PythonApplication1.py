@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
-import urllib2
-import BeautifulSoup
+import urllib.request
 import itertools
 import re
 from bs4 import BeautifulSoup
@@ -13,7 +12,7 @@ def getLinks():
 	craig = "https://binghamton.craigslist.org/search/cta?hasPic=1&searchNearby=1"
 
 	#opens the webpage and stores it in soup
-	page = urllib2.urlopen(craig)
+	page = urllib.request.urlopen(craig)
 	soup = BeautifulSoup(page, 'html.parser')
 	
 	#get each individual post
@@ -29,7 +28,7 @@ def getLinks():
 
 #gets the title from the post and parses it
 def iterate(u):
-	page = urllib2.urlopen(u)
+	page = urllib.request.urlopen(u)
 	#gets the webpage nad stores it as soup
 	soup = BeautifulSoup(page, 'html.parser')
 
@@ -68,7 +67,7 @@ def parse(t):
 #opens initial kbb page
 def getKBBPage(data):
 	kbb = "https://www.kbb.com/"+data[1]+"/"+data[2]+"/"+data[0]+"/"
-	thePage = urllib2.urlopen(kbb)
+	thePage = urllib.request.urlopen(kbb)
 	theSoup = BeautifulSoup(thePage, 'html.parser')
 	#print theSoup
 	newPage = theSoup.select("span[class=right] > p")
@@ -80,17 +79,17 @@ def getKBBPage(data):
 		return "https://www.kbb.com"+newPage.a['href']
 
 def nextPage(start):
-	page = urllib2.urlopen(start)
+	page = urllib.request.urlopen(start)
 	soup = BeautifulSoup(page, 'html.parser')
 	#data = soup.select("div[class=style-category-container] > div[class=mod-content__expanded-content]")
-	print soup
+	#print soup
 
 file = open('output.txt','w')
 
 #TODO
 #opens the list of all car makes and models
-with open('car-list.json', 'r') as f:
-	data = json.load(f)
+#with open('car-list.json', 'r') as f:
+#	data = json.load(f)
 
 #for i in data:
 #	print i
