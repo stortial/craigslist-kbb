@@ -23,9 +23,10 @@ def getLinks():
 	#get just the link for each post
 	for e in links:
 		newList.append(e.a['href'])
+	print (newList[0])
 
 	return newList
-"""
+
 #gets the title from the post and parses it
 def iterate(u):
 	page = urllib.request.urlopen(u)
@@ -48,22 +49,27 @@ def iterate(u):
 def parse(t):
 
 	#find the year, make and model
-	#year = re.match(r'\d\d\d\d',t)
-	year = "2010"
+	#does not account for ram 1500 etc TODO
+	year = re.match(r'\d{4}',t).group(0)
+
+	#year = "2010"
 	make = "chevrolet"
 	model = "equinox"
+
 	#make = any(x in MAKES for c in t)#with makes being the list of all car makes
 	#model = re.match()
 	#print year.group()
 
 	#make sure you initialize style
-	style = "None";
-
-	#get the style
+	#style = "None";
+	#style would be sedan-4d
 
 	#return year.group(), make, model, style
-	return year, make, model, style
+	return year, make, model#, style
 
+
+
+"""
 #opens initial kbb page
 def getKBBPage(data):
 	kbb = "https://www.kbb.com/"+data[1]+"/"+data[2]+"/"+data[0]+"/"
@@ -100,6 +106,8 @@ theLinks = getLinks()
 	#returns year make and model in tuple in that order
 	#data = iterate(e)
 	#start = getKBBPage(data)
+
+print (iterate(theLinks[0]))
 
 """
 #returns year make and model in tuple in that order
