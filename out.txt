@@ -1,1 +1,0 @@
-{'Buick': ['Envision'], 'Chevrolet': ['Equinox', 'Impala'], 'Honda': ['Odyssey', 'Pilot', 'Ridgeline'], 'Hyundai': ['Santa Fe'], 'INFINITI': ['QX50'], 'Jeep': ['Cherokee'], 'Kia': ['Sorento'], 'MAZDA': ['CX-3'], 'MINI': ['Countryman'], 'Ram': ['1500 Crew Cab']}
